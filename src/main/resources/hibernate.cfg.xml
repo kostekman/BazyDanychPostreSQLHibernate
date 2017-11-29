@@ -20,5 +20,18 @@
         <property name="current_session_context_class">thread</property>
 
 
+        <mapping class="edu.agh.bazyprojekt.model.Category"/>
+        <mapping class="edu.agh.bazyprojekt.model.Customer"/>
+        <mapping class="edu.agh.bazyprojekt.model.CustomerDemographic"/>
+        <mapping class="edu.agh.bazyprojekt.model.Employee"/>
+        <mapping class="edu.agh.bazyprojekt.model.Order"/>
+        <mapping class="edu.agh.bazyprojekt.model.OrderDetails"/>
+        <mapping class="edu.agh.bazyprojekt.model.Product"/>
+        <mapping class="edu.agh.bazyprojekt.model.Region"/>
+        <mapping class="edu.agh.bazyprojekt.model.Shipper"/>
+        <mapping class="edu.agh.bazyprojekt.model.Supplier"/>
+        <mapping class="edu.agh.bazyprojekt.model.Territory"/>
+
+
     </session-factory>
 </hibernate-configuration>

@@ -1,39 +1,33 @@
 package edu.agh.bazyprojekt.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Entity(name = "Customers")
-public class Customer {
+@Entity(name = "Suppliers")
+public class Supplier {
     @Id
-    private int customerID;
+    private int supplierID;
     private String companyName;
     private String contactName;
     private String contactTitle;
     private Address address;
     private String phone;
     private String fax;
+    private String homePage;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "CustomerCustomerDemo",
-            joinColumns = @JoinColumn(name = "customerID"),
-            inverseJoinColumns = @JoinColumn(name = "customerTypeID")
-    )
-    private Set<CustomerDemographic> customerDemographics;
     @OneToMany
-    @JoinTable(
-            name = "Orders",
-            joinColumns = @JoinColumn(name = "customerID")
-    )
-    private Set<Order> orders;
+    @JoinColumn(name = "SupplierID")
+    private Set<Product> products;
 
-    public int getCustomerID() {
-        return customerID;
+    public int getSupplierID() {
+        return supplierID;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setSupplierID(int supplierID) {
+        this.supplierID = supplierID;
     }
 
     public String getCompanyName() {
@@ -84,19 +78,19 @@ public class Customer {
         this.fax = fax;
     }
 
-    public Set<CustomerDemographic> getCustomerDemographics() {
-        return customerDemographics;
+    public String getHomePage() {
+        return homePage;
     }
 
-    public void setCustomerDemographics(Set<CustomerDemographic> customerDemographics) {
-        this.customerDemographics = customerDemographics;
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }
