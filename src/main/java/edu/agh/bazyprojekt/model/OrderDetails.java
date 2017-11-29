@@ -1,11 +1,9 @@
 package edu.agh.bazyprojekt.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-@Entity(name = "Order_Details")
+@Entity
+@Table(name = "Order_Details")
 public class OrderDetails {
     @Id
     @ManyToOne

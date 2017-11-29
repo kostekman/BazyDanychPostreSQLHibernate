@@ -2,8 +2,10 @@ package edu.agh.bazyprojekt.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "Shippers")
+@Entity
+@Table(name = "Shippers")
 public class Shipper {
     @Id
     private int shipperID;

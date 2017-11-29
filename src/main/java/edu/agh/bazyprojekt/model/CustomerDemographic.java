@@ -2,8 +2,10 @@ package edu.agh.bazyprojekt.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "CustomerDemographics")
+@Entity
+@Table(name = "CustomerDemographics")
 public class CustomerDemographic {
     @Id
     private int customerTypeID;

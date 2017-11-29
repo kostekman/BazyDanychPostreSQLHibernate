@@ -3,10 +3,11 @@ package edu.agh.bazyprojekt.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "Customers")
+@Entity
+@Table(name = "customers")
 public class Customer {
     @Id
-    private int customerID;
+    private String customerID;
     private String companyName;
     private String contactName;
     private String contactTitle;
@@ -28,11 +29,11 @@ public class Customer {
     )
     private Set<Order> orders;
 
-    public int getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
 

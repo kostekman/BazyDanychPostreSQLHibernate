@@ -1,11 +1,9 @@
 package edu.agh.bazyprojekt.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-@Entity(name = "Territories")
+@Entity
+@Table(name = "Territories")
 public class Territory {
     @Id
     private int territoryID;

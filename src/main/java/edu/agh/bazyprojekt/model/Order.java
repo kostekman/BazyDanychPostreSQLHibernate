@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
-@Entity(name = "Orders")
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
     private int orderID;

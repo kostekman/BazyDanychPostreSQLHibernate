@@ -2,12 +2,10 @@ package edu.agh.bazyprojekt.model;
 
 import com.sun.istack.internal.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-@Entity(name = "Products")
+@Entity
+@Table(name = "Products")
 public class Product {
     @Id
     private int productID;

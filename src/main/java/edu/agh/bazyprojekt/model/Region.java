@@ -2,8 +2,10 @@ package edu.agh.bazyprojekt.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "Region")
+@Entity
+@Table(name = "Region")
 public class Region {
     @Id
     private int regionID;

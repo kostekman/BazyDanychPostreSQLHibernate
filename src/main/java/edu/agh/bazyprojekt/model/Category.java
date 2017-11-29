@@ -4,7 +4,8 @@ package edu.agh.bazyprojekt.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity(name = "Categories")
+@Entity
+@Table(name = "Categories")
 public class Category {
     @Id
     private int categoryID;
