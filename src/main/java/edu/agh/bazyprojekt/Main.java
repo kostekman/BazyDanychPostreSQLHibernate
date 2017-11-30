@@ -1,7 +1,6 @@
 package edu.agh.bazyprojekt;
 
-import edu.agh.bazyprojekt.model.Customer;
-import edu.agh.bazyprojekt.model.Order;
+import edu.agh.bazyprojekt.model.OrderDetails;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,11 +12,10 @@ public class Main {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query<Customer> query = session.createQuery("from Customer ");
+        Query<OrderDetails> query = session.createQuery("from OrderDetails ");
 
-        query.stream().forEach(order -> System.out.println(order.getContactName()));
+        query.stream().forEach(order -> System.out.println(order.getProduct().getSupplier().getCompanyName()));
 
-        System.out.println("sth Happened");
         session.close();
     }
 }

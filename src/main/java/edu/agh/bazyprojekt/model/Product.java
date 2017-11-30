@@ -1,106 +1,166 @@
 package edu.agh.bazyprojekt.model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "products", schema = "public", catalog = "northwind")
 public class Product {
-    @Id
-    private int productID;
+    private short productId;
     private String productName;
-    @ManyToOne
-    @JoinColumn(name = "SupplierID")
-    private Supplier supplier;
-    @ManyToOne
-    @JoinColumn(name = "CategoryID")
-    private Category category;
     private String quantityPerUnit;
-    private double unitPrice;
-    private int unitsInStock;
-    private int unitsOnOrder;
-    private int reorderLevel;
-    @NotNull
+    private Float unitPrice;
+    private Short unitsInStock;
+    private Short unitsOnOrder;
+    private Short reorderLevel;
     private int discontinued;
+    private Collection<OrderDetails> orderDetails;
+    private Supplier supplier;
+    private Category category;
 
-    public int getProductID() {
-        return productID;
+    @Id
+    @GeneratedValue
+    @Column(name = "productid")
+    public short getProductId() {
+        return productId;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProductId(short productid) {
+        this.productId = productid;
     }
 
+    @Basic
+    @Column(name = "productname")
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductName(String productname) {
+        this.productName = productname;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
+    @Basic
+    @Column(name = "quantityperunit")
     public String getQuantityPerUnit() {
         return quantityPerUnit;
     }
 
-    public void setQuantityPerUnit(String quantityPerUnit) {
-        this.quantityPerUnit = quantityPerUnit;
+    public void setQuantityPerUnit(String quantityperunit) {
+        this.quantityPerUnit = quantityperunit;
     }
 
-    public double getUnitPrice() {
+    @Basic
+    @Column(name = "unitprice")
+    public Float getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setUnitPrice(Float unitprice) {
+        this.unitPrice = unitprice;
     }
 
-    public int getUnitsInStock() {
+    @Basic
+    @Column(name = "unitsinstock")
+    public Short getUnitsInStock() {
         return unitsInStock;
     }
 
-    public void setUnitsInStock(int unitsInStock) {
-        this.unitsInStock = unitsInStock;
+    public void setUnitsInStock(Short unitsinstock) {
+        this.unitsInStock = unitsinstock;
     }
 
-    public int getUnitsOnOrder() {
+    @Basic
+    @Column(name = "unitsonorder")
+    public Short getUnitsOnOrder() {
         return unitsOnOrder;
     }
 
-    public void setUnitsOnOrder(int unitsOnOrder) {
-        this.unitsOnOrder = unitsOnOrder;
+    public void setUnitsOnOrder(Short unitsonorder) {
+        this.unitsOnOrder = unitsonorder;
     }
 
-    public int getReorderLevel() {
+    @Basic
+    @Column(name = "reorderlevel")
+    public Short getReorderLevel() {
         return reorderLevel;
     }
 
-    public void setReorderLevel(int reorderLevel) {
-        this.reorderLevel = reorderLevel;
+    public void setReorderLevel(Short reorderlevel) {
+        this.reorderLevel = reorderlevel;
     }
 
+    @Basic
+    @Column(name = "discontinued")
     public int getDiscontinued() {
         return discontinued;
     }
 
     public void setDiscontinued(int discontinued) {
         this.discontinued = discontinued;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        if (productId != product.productId) return false;
+        if (discontinued != product.discontinued) return false;
+        if (productName != null ? !productName.equals(product.productName) : product.productName != null) return false;
+        if (quantityPerUnit != null ? !quantityPerUnit.equals(product.quantityPerUnit) : product.quantityPerUnit != null)
+            return false;
+        if (unitPrice != null ? !unitPrice.equals(product.unitPrice) : product.unitPrice != null) return false;
+        if (unitsInStock != null ? !unitsInStock.equals(product.unitsInStock) : product.unitsInStock != null)
+            return false;
+        if (unitsOnOrder != null ? !unitsOnOrder.equals(product.unitsOnOrder) : product.unitsOnOrder != null)
+            return false;
+        if (reorderLevel != null ? !reorderLevel.equals(product.reorderLevel) : product.reorderLevel != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) productId;
+        result = 31 * result + (productName != null ? productName.hashCode() : 0);
+        result = 31 * result + (quantityPerUnit != null ? quantityPerUnit.hashCode() : 0);
+        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
+        result = 31 * result + (unitsInStock != null ? unitsInStock.hashCode() : 0);
+        result = 31 * result + (unitsOnOrder != null ? unitsOnOrder.hashCode() : 0);
+        result = 31 * result + (reorderLevel != null ? reorderLevel.hashCode() : 0);
+        result = 31 * result + discontinued;
+        return result;
+    }
+
+    @OneToMany(mappedBy = "product")
+    public Collection<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Collection<OrderDetails> orderDetailsByProductid) {
+        this.orderDetails = orderDetailsByProductid;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "supplierid", referencedColumnName = "supplierid")
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier suppliersBySupplierid) {
+        this.supplier = suppliersBySupplierid;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category categoriesByCategoryid) {
+        this.category = categoriesByCategoryid;
     }
 }
