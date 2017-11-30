@@ -1,21 +1,15 @@
 package edu.agh.bazyprojekt;
 
-import edu.agh.bazyprojekt.model.OrderDetails;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import edu.agh.bazyprojekt.controller.EmployeeController;
+import edu.agh.bazyprojekt.controller.HibernateEmployeeController;
+import edu.agh.bazyprojekt.controller.HibernateOrderController;
+import edu.agh.bazyprojekt.controller.OrderController;
 
 public class Main {
 
     public static void main(String[] args) {
-        SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        OrderController orderController = new HibernateOrderController();
 
-        Query<OrderDetails> query = session.createQuery("from OrderDetails ");
-
-        query.stream().forEach(order -> System.out.println(order.getProduct().getSupplier().getCompanyName()));
-
-        session.close();
+        EmployeeController employeeController = new HibernateEmployeeController();
     }
 }

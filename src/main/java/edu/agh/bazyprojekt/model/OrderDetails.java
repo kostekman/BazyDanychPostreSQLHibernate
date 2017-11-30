@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "order_details", schema = "public", catalog = "northwind")
+@IdClass(OrderDetailsPK.class)
 public class OrderDetails implements Serializable {
     private short orderId;
     private short productId;
@@ -91,7 +92,7 @@ public class OrderDetails implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "orderid", referencedColumnName = "orderid", nullable = false)
+    @JoinColumn(name = "orderid", referencedColumnName = "orderid", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
         return order;
     }
@@ -101,12 +102,23 @@ public class OrderDetails implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "productid", referencedColumnName = "productid", nullable = false)
+    @JoinColumn(name = "productid", referencedColumnName = "productid", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
         return product;
     }
 
     public void setProduct(Product productsByProductid) {
         this.product = productsByProductid;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Product: " + this.getProduct().getProductName() + "\n");
+        sb.append("Quantity: " + this.getQuantity() + "\n");
+        sb.append("Price: " + this.getUnitPrice() * (1 - this.getDiscount()) + "\n");
+
+        return sb.toString();
     }
 }

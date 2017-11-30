@@ -1,4 +1,4 @@
-package edu.agh.bazyprojekt;
+package edu.agh.bazyprojekt.hibernateUtils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

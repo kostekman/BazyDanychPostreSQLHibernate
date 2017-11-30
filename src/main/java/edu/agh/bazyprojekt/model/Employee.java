@@ -29,6 +29,17 @@ public class Employee {
     private Collection<Employee> managedEmployees;
     private Collection<Order> managedOrders;
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Name: " + firstName + " " + lastName + "\n");
+        sb.append("Managed orders: \n");
+        managedOrders.stream().forEach(order -> sb.append(order));
+
+        return sb.toString();
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "employeeid")
@@ -261,7 +272,7 @@ public class Employee {
         this.reportsTo = employeesByReportsto;
     }
 
-    @OneToMany(mappedBy = "reportsTo")
+    @OneToMany(mappedBy = "reportsTo", cascade = CascadeType.DETACH)
     public Collection<Employee> getManagedEmployees() {
         return managedEmployees;
     }

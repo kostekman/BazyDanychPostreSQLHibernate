@@ -24,7 +24,6 @@ public class Order {
     private Shipper shippedBy;
 
     @Id
-    @GeneratedValue
     @Column(name = "orderid")
     public short getOrderId() {
         return orderId;
@@ -173,7 +172,7 @@ public class Order {
         return result;
     }
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
@@ -210,5 +209,17 @@ public class Order {
 
     public void setShippedBy(Shipper shippersByShipvia) {
         this.shippedBy = shippersByShipvia;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order id: "  + this.getOrderId() + "\n");
+        sb.append("Client name: " + this.getCustomer().getContactName() + "\n");
+        sb.append("Ordered products: " + "\n");
+        this.getOrderDetails().stream().forEach(orderDetails -> sb.append(orderDetails));
+
+        sb.append("\n");
+        return sb.toString();
     }
 }
