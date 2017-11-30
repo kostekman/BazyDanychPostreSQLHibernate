@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class HibernateController {
+public abstract class HibernateController {
     protected final static SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
 
     protected void saveObjectToDb(Object object){
