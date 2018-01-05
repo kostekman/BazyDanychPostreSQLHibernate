@@ -10,7 +10,7 @@ public class Territory {
     private Region region;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "territoryid")
     public String getTerritoryId() {
         return territoryId;

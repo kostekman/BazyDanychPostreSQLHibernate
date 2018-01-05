@@ -1,12 +1,18 @@
 package edu.agh.bazyprojekt.model;
 
+import org.hibernate.annotations.*;
+
+import javax.enterprise.context.Initialized;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
-@Table(name = "employees", schema = "public", catalog = "northwind")
+@Table(name = "employees")
 public class Employee {
     private short employeeId;
     private String lastName;
@@ -41,7 +47,7 @@ public class Employee {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "employeeid")
     public short getEmployeeId() {
         return employeeId;

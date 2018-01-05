@@ -1,36 +1,68 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.hibernateUtils.HibernateSessionFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.apache.commons.lang3.tuple.Pair;
+import org.hibernate.*;
+import org.hibernate.query.Query;
 
-public abstract class HibernateController {
-    protected final static SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
+import java.util.List;
+import java.util.Map;
 
-    protected void saveObjectToDb(Object object){
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
+public class HibernateController<K> {
 
-        session.save(object);
+    protected final Session session;
 
-        transaction.commit();
-
-        session.close();
+    public HibernateController(Session session){
+        this.session = session;
     }
 
-    protected Object removeObjectFromDb(Object object){
-        Session session = sessionFactory.openSession();
-
+    public void saveObjectsToDb(List<K> objects){
         Transaction transaction = session.beginTransaction();
 
-        session.delete(object);
+        for(K object : objects) {
+            session.save(object);
+        }
 
         transaction.commit();
 
-        session.close();
+        
+    }
 
-        return object;
+    public void removeObjectFromDb(List<K> objects){
+        Transaction transaction = session.beginTransaction();
+        for(K object : objects) {
+            session.delete(object);
+        }
+        transaction.commit();
+
+        
+    }
+
+    public List<K> getFilteredListOfObjects(Map<String, List<Pair<String, Object>>> filtersMap, Class clazz){
+
+        Transaction transaction = session.beginTransaction();
+
+        List<K> listOfObjects = selectFromTable(setupSessionWithFilters(session, filtersMap), clazz.getSimpleName());
+
+        transaction.commit();
+        
+        return listOfObjects;
+
+    }
+
+    private Session setupSessionWithFilters(Session session, Map<String, List<Pair<String, Object>>> filtersMap){
+
+
+
+
+
+        return session;
+    }
+
+    private List<K> selectFromTable(Session session, String tableName){
+        Query<K> query = session.createQuery("FROM " + tableName);
+
+        return query.getResultList();
     }
 
 }

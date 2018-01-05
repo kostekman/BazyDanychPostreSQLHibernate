@@ -1,5 +1,7 @@
 package edu.agh.bazyprojekt.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -18,10 +20,11 @@ public class Supplier {
     private String phone;
     private String fax;
     private String homepage;
+    @Cascade(value = org.hibernate.annotations.CascadeType.PERSIST)
     private Collection<Product> products;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "supplierid")
     public short getSupplierId() {
         return supplierId;

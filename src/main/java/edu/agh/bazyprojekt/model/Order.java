@@ -1,8 +1,11 @@
 package edu.agh.bazyprojekt.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "orders", schema = "public", catalog = "northwind")
@@ -18,12 +21,14 @@ public class Order {
     private String shipRegion;
     private String shipPostalCode;
     private String shipCountry;
-    private Collection<OrderDetails> orderDetails;
+    @Cascade(value= org.hibernate.annotations.CascadeType.ALL)
+    private List<OrderDetails> orderDetails;
     private Customer customer;
     private Employee employee;
     private Shipper shippedBy;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderid")
     public short getOrderId() {
         return orderId;
@@ -173,11 +178,11 @@ public class Order {
     }
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Collection<OrderDetails> getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Collection<OrderDetails> orderDetailsByOrderid) {
+    public void setOrderDetails(List<OrderDetails> orderDetailsByOrderid) {
         this.orderDetails = orderDetailsByOrderid;
     }
 

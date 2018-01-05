@@ -12,7 +12,7 @@ public class Shipper {
     private Collection<Order> orders;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shipperid")
     public short getShipperId() {
         return shipperId;

@@ -1,5 +1,7 @@
 package edu.agh.bazyprojekt.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -14,12 +16,13 @@ public class Product {
     private Short unitsOnOrder;
     private Short reorderLevel;
     private int discontinued;
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private Collection<OrderDetails> orderDetails;
     private Supplier supplier;
     private Category category;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productid")
     public short getProductId() {
         return productId;

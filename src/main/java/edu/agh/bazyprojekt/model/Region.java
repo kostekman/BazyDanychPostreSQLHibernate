@@ -10,7 +10,7 @@ public class Region {
     private Collection<Territory> territories;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "regionid")
     public short getRegionId() {
         return regionId;

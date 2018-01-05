@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "usstates", schema = "public", catalog = "northwind")
 public class Usstate {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private short stateId;
     private String stateName;
     private String stateAbbr;

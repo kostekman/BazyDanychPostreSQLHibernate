@@ -3,6 +3,7 @@ package edu.agh.bazyprojekt.model;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.xml.bind.ValidationEventLocator;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -13,10 +14,11 @@ public class Category {
     private String categoryName;
     private String description;
     private byte[] picture;
+    @Cascade(value = org.hibernate.annotations.CascadeType.PERSIST)
     private Collection<Product> productsInCategory;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryid")
     public short getCategoryID() {
         return categoryID;
@@ -90,4 +92,6 @@ public class Category {
     public void setProductsInCategory(Collection<Product> productsByCategoryid) {
         this.productsInCategory = productsByCategoryid;
     }
+
+
 }
