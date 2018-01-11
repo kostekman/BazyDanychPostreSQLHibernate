@@ -1,5 +1,8 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Arrays;
@@ -41,7 +44,7 @@ public class Employee {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employeeid")
     public short getEmployeeId() {
         return employeeId;
@@ -262,6 +265,7 @@ public class Employee {
         return result;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "reportsto", referencedColumnName = "employeeid")
     public Employee getReportsTo() {
@@ -272,6 +276,7 @@ public class Employee {
         this.reportsTo = employeesByReportsto;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "reportsTo", cascade = CascadeType.DETACH)
     public Collection<Employee> getManagedEmployees() {
         return managedEmployees;
@@ -281,6 +286,7 @@ public class Employee {
         this.managedEmployees = employeesByEmployeeid;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "employee")
     public Collection<Order> getManagedOrders() {
         return managedOrders;

@@ -1,9 +1,19 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Order;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import edu.agh.bazyprojekt.model.ReadOrdersRq;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+
+import static org.springframework.util.Assert.notNull;
+
+@Component
 public class HibernateOrderController extends HibernateController implements OrderController {
     @Override
     public void createNewOrder(Order order) {
@@ -20,13 +30,25 @@ public class HibernateOrderController extends HibernateController implements Ord
         return (Order)removeObjectFromDb(order);
     }
 
-    public Order getOrderById(int id){
-        Session session = sessionFactory.openSession();
+    public List<Order> getOrder(ReadOrdersRq rq){
+        return findObjects(Order.class, getPredicateProvider(rq));
+    }
 
-        Query<Order> query = session.createQuery("FROM Order o where o.id = :id");
-        query.setParameter("id", (short)id);
-        Order order = query.stream().findFirst().orElse(null);
-        session.close();
-        return order;
+    private BiFunction<CriteriaBuilder, Root<Order>, Predicate> getPredicateProvider(ReadOrdersRq rq){
+        if(rq.getBefore().isPresent() || rq.getAfter().isPresent()){
+            notNull(rq.getDateField(), "dateField must not be null!");
+        }
+        return (cb, root) -> {
+            List<Predicate> predicates = rq.getRestrictions().entrySet()
+                    .stream()
+                    .map(entry -> createEqualPredicate(entry.getKey(), entry.getValue(), cb, root))
+                    .collect(Collectors.toList());
+
+            rq.getBefore().ifPresent(date -> predicates.add(createLessThanPredicate(rq.getDateField(), date, cb, root)));
+            rq.getAfter().ifPresent(date -> predicates.add(createGreaterThanPredicate(rq.getDateField(), date, cb, root)));
+
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+
+        };
     }
 }
