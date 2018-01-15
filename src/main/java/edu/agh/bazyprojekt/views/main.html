@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../javascript/main.js"></script>
+    <script src="../style/bootstrap-4.0.0-beta.3-dist/js/bootstrap.js"></script>
+    <script src="../style/bootstrap-4.0.0-beta.3-dist/js/bootstrap.bundle.js"></script>
+
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/bootstrap-4.0.0-beta.3-dist/css/bootstrap.css">
+</head>
+<body>
+<script>
+    $(document).ready( function() {
+        $("#orders").on("click", function() {
+            $("#mainContainer").load("orders.html");
+        });
+        $("#products").on("click", function() {
+            $("#mainContainer").load("products.html");
+        });
+    });
+</script>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">NORTHWIND</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="#" id="products">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="orders">Orders</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" id="mainContainer">
+
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
