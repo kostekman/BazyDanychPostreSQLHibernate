@@ -1,3 +1,9 @@
 .m_20_0{
     margin: 20px 0;
 }
+
+@media (min-width: 576px){
+        .modal_900 {
+            max-width: 900px !important;
+        }
+}
