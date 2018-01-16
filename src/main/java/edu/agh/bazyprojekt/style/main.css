@@ -2,6 +2,10 @@
     margin: 20px 0;
 }
 
+.m_bottom_20{
+    margin-bottom: 20px;
+}
+
 @media (min-width: 576px){
         .modal_900 {
             max-width: 900px !important;

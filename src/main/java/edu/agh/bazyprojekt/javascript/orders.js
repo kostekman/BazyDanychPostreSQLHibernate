@@ -74,6 +74,10 @@ function openOrderModal(orderId) {
     $('#orderModal').modal('show');
 }
 
+function openOrderCreateModal() {
+
+}
+
 var orderTable = document.getElementById('ordersTableBody');
 
 var text = '';
