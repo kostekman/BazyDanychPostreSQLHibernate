@@ -75,15 +75,16 @@ function openOrderModal(orderId) {
 }
 
 function openOrderCreateModal() {
-
+    $('#orderCreateModal').modal('show');
 }
-
+function openOrderRemoveModal() {
+    $('#orderRemoveModal').modal('show');
+}
 var orderTable = document.getElementById('ordersTableBody');
 
 var text = '';
 for (i = 0; i < orders.length; i++) {
-    text = text + "<tr><th>" + orders[i].id + "</th><td>" + orders[i].customerId + "</td><td>" + orders[i].employeeId + "</td><td>" + orders[i].orderDate + "</td><td>" + orders[i].requiredDate + "</td><td>" + orders[i].shipVia + "</td><td>" + orders[i].freight + "</td><td>" + orders[i].shipName + "</td><td>" + orders[i].shipAdress + "</td><td>" + orders[i].shipCity + "</td><td>" + orders[i].shipRegion + "</td><td>" + orders[i].shipPostalCode + "</td><td>" + orders[i].shipCountry +"</td><td><button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"openOrderModal(" + orders[i].id + ")\">\n" +
-        "            Edit\n" +
-        "        </button></td>";
+    text = text + "<tr><th>" + orders[i].id + "</th><td>" + orders[i].customerId + "</td><td>" + orders[i].employeeId + "</td><td>" + orders[i].orderDate + "</td><td>" + orders[i].requiredDate + "</td><td>" + orders[i].shipVia + "</td><td>" + orders[i].freight + "</td><td>" + orders[i].shipName + "</td><td>" + orders[i].shipAdress + "</td><td>" + orders[i].shipCity + "</td><td>" + orders[i].shipRegion + "</td><td>" + orders[i].shipPostalCode + "</td><td>" + orders[i].shipCountry +"</td><td class='buttonTd'><button type=\"button\" class=\"m_right_7 btn btn-primary btn-sm\" onclick=\"openOrderModal(" + orders[i].id + ")\">\n" +
+        "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openOrderRemoveModal()\">X</button></td>";
 }
 orderTable.innerHTML = text;

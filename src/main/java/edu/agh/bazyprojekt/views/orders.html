@@ -1,10 +1,10 @@
 <h3 class="m_20_0">ORDERS</h3>
-<button type="button" class="m_bottom_20 btn btn-success btn-sm">+ new order</button>
+<button type="button" class="m_bottom_20 btn btn-success btn-sm" onclick="openOrderCreateModal()">+ new order</button>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Search"
            aria-describedby="basic-addon2">
     <div class="input-group-append">
-        <button class="btn btn-outline-secondary" onclick="openOrderCreateModal()" type="button">Search</button>
+        <button class="btn btn-outline-secondary"  type="button">Search</button>
     </div>
 </div>
 
@@ -32,7 +32,7 @@
     </tbody>
 </table>
 
-
+<!-- Modal Edit-->
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal_900" role="document">
@@ -100,6 +100,106 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Create-->
+<div class="modal fade" id="orderCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal_900" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="idOrderC">Id</label>
+                        <input class="form-control" id="idOrderC" placeholder="id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="customerIdC">Customer Id</label>
+                        <input class="form-control" id="customerIdC" placeholder="Customer Id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="employeeIdC">Employee Id</label>
+                        <input class="form-control" id="employeeIdC" placeholder="Employee Id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="orderDateC">Order date</label>
+                        <input class="form-control" id="orderDateC" placeholder="Order date">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="requiredDateC">Required date</label>
+                        <input class="form-control" id="requiredDateC" placeholder="Required date">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shippedDateC">Shipped date</label>
+                        <input class="form-control" id="shippedDateC" placeholder="Shipped date">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipViaC">Ship via</label>
+                        <input class="form-control" id="shipViaC" placeholder="Ship via">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="freightC">Freight</label>
+                        <input class="form-control" id="freightC" placeholder="Freight">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipNameC">Ship name</label>
+                        <input class="form-control" id="shipNameC" placeholder="Ship name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipAddressC">Ship address</label>
+                        <input class="form-control" id="shipAddressC" placeholder="Ship address">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipCityC">Ship city</label>
+                        <input class="form-control" id="shipCityC" placeholder="Ship city">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipRegionC">Ship region</label>
+                        <input class="form-control" id="shipRegionC" placeholder="Ship region">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipPostalCodeC">Ship postal code</label>
+                        <input class="form-control" id="shipPostalCodeC" placeholder="Ship postal code">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="shipCountryC">Ship country</label>
+                        <input class="form-control" id="shipCountryC" placeholder="Ship country">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Remove-->
+<div class="modal fade" id="orderRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Remove order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to remove the order?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Remove order</button>
             </div>
         </div>
     </div>

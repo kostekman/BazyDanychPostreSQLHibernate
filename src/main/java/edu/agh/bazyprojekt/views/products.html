@@ -1,4 +1,5 @@
 <h3 class="m_20_0">Products</h3>
+<button type="button" class="m_bottom_20 btn btn-success btn-sm" onclick="openProductCreateModal()">+ new product</button>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
            aria-describedby="basic-addon2">
@@ -28,7 +29,7 @@
 </table>
 
 
-<!-- Modal -->
+<!-- Modal Edit-->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal_900" role="document">
@@ -80,6 +81,88 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Create-->
+<div class="modal fade" id="productCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal_900" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="idC">Id</label>
+                        <input class="form-control" id="idC" placeholder="id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="nameC">Name</label>
+                        <input class="form-control" id="nameC" placeholder="Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="supplierIdC">Supplier Id</label>
+                        <input class="form-control" id="supplierIdC" placeholder="Supplier Id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="categoryIdC">Category Id</label>
+                        <input class="form-control" id="categoryIdC" placeholder="Category Id">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="quantityPerUnitC">Quantity per unit</label>
+                        <input class="form-control" id="quantityPerUnitC" placeholder="Quantity per unit">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="unitPriceC">Unit price</label>
+                        <input class="form-control" id="unitPriceC" placeholder="Unit price">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="unitsInStockC">Units in stock</label>
+                        <input class="form-control" id="unitsInStockC" placeholder="Units in stock">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="unitsOnOrderC">Units on order</label>
+                        <input class="form-control" id="unitsOnOrderC" placeholder="Units on order">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="reorderLevelC">Reorder level</label>
+                        <input class="form-control" id="reorderLevelC" placeholder="Reorder level">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="discontinuedC">Discontinued</label>
+                        <input class="form-control" id="discontinuedC" placeholder="Discontinued">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create new product</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Remove-->
+<div class="modal fade" id="productRemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Remove product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to remove the product?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Remove product</button>
             </div>
         </div>
     </div>

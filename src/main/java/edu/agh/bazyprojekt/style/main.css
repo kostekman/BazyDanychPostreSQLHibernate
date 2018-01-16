@@ -5,7 +5,12 @@
 .m_bottom_20{
     margin-bottom: 20px;
 }
-
+.buttonTd{
+    display: inline-flex;
+}
+.m_right_7{
+    margin-right: 7px;
+}
 @media (min-width: 576px){
         .modal_900 {
             max-width: 900px !important;

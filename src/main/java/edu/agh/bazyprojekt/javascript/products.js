@@ -58,13 +58,17 @@ function openProductModal(productId) {
     $('#discontinued').val(product.discontinued);
     $('#productModal').modal('show');
 }
-
+function openProductCreateModal() {
+    $('#productCreateModal').modal('show');
+}
+function openProductRemoveModal() {
+    $('#productRemoveModal').modal('show');
+}
 var productTable = document.getElementById('productsTableBody');
 console.log(productTable);
 var text = '';
 for (i = 0; i < products.length; i++) {
-    text = text + "<tr><th>" + products[i].id + "</th><td>" + products[i].name + "</td><td>" + products[i].supplierId + "</td><td>" + products[i].categoryId + "</td><td>" + products[i].quantityPerUnit + "</td><td>" + products[i].unitPrice + "</td><td>" + products[i].unitsInStock + "</td><td>" + products[i].unitsOnOrder + "</td><td>" + products[i].reorderLevel + "</td><td>" + products[i].discontinued + "</td><td><button type=\"button\" class=\"btn btn-primary btn-sm\" onclick=\"openProductModal(" + products[i].id + ")\">\n" +
-        "            Edit\n" +
-        "        </button></td>";
+    text = text + "<tr><th>" + products[i].id + "</th><td>" + products[i].name + "</td><td>" + products[i].supplierId + "</td><td>" + products[i].categoryId + "</td><td>" + products[i].quantityPerUnit + "</td><td>" + products[i].unitPrice + "</td><td>" + products[i].unitsInStock + "</td><td>" + products[i].unitsOnOrder + "</td><td>" + products[i].reorderLevel + "</td><td>" + products[i].discontinued + "</td><td class='buttonTd'><button type=\"button\" class=\"m_right_7 btn btn-primary btn-sm\" onclick=\"openProductModal(" + products[i].id + ")\">\n" +
+        "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openProductRemoveModal()\">X</button></td>";
 }
 productTable.innerHTML = text;
