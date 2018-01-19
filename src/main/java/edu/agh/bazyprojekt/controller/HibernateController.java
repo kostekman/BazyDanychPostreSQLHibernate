@@ -1,7 +1,6 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.hibernateUtils.HibernateSessionFactory;
-import edu.agh.bazyprojekt.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +12,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 public abstract class HibernateController {
     protected final static SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
