@@ -14,7 +14,6 @@ public class Category {
     private String categoryName;
     private String description;
     private byte[] picture;
-    @Cascade(value = org.hibernate.annotations.CascadeType.PERSIST)
     private Collection<Product> productsInCategory;
 
     @Id
@@ -58,6 +57,15 @@ public class Category {
         this.picture = picture;
     }
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    public Collection<Product> getProductsInCategory() {
+        return productsInCategory;
+    }
+
+    public void setProductsInCategory(Collection<Product> productsByCategoryid) {
+        this.productsInCategory = productsByCategoryid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,15 +90,6 @@ public class Category {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + Arrays.hashCode(picture);
         return result;
-    }
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Collection<Product> getProductsInCategory() {
-        return productsInCategory;
-    }
-
-    public void setProductsInCategory(Collection<Product> productsByCategoryid) {
-        this.productsInCategory = productsByCategoryid;
     }
 
 

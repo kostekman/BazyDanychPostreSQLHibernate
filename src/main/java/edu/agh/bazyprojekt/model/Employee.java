@@ -35,17 +35,6 @@ public class Employee {
     private Collection<Employee> managedEmployees;
     private Collection<Order> managedOrders;
 
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Name: " + firstName + " " + lastName + "\n");
-        sb.append("Managed orders: \n");
-        managedOrders.stream().forEach(order -> sb.append(order));
-
-        return sb.toString();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employeeid")
@@ -297,5 +286,16 @@ public class Employee {
 
     public void setManagedOrders(Collection<Order> ordersByEmployeeid) {
         this.managedOrders = ordersByEmployeeid;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Name: " + firstName + " " + lastName + "\n");
+        sb.append("Managed orders: \n");
+        managedOrders.stream().forEach(order -> sb.append(order));
+
+        return sb.toString();
     }
 }

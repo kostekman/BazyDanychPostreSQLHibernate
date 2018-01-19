@@ -18,7 +18,6 @@ public class Product {
     private Short unitsOnOrder;
     private Short reorderLevel;
     private int discontinued;
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
     private Collection<OrderDetails> orderDetails;
     private Supplier supplier;
     private Category category;
@@ -141,7 +140,7 @@ public class Product {
     }
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = false)
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
