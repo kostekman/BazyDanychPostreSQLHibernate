@@ -1,68 +1,68 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.hibernateUtils.HibernateSessionFactory;
-import org.apache.commons.lang3.tuple.Pair;
-import org.hibernate.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Map;
+import java.util.function.BiFunction;
 
-public class HibernateController<K> {
+public abstract class HibernateController {
+    protected final static SessionFactory sessionFactory = HibernateSessionFactory.getSessionFactory();
 
-    protected final Session session;
+    protected <T> List<T> findObjects(Class<T> clazz, BiFunction<CriteriaBuilder, Root<T>, Predicate> predicateProvider){
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = cb.createQuery(clazz);
+        Root<T> root = criteriaQuery.from(clazz);
 
-    public HibernateController(Session session){
-        this.session = session;
-    }
-
-    public void saveObjectsToDb(List<K> objects){
-        Transaction transaction = session.beginTransaction();
-
-        for(K object : objects) {
-            session.save(object);
-        }
-
-        transaction.commit();
-
-        
-    }
-
-    public void removeObjectFromDb(List<K> objects){
-        Transaction transaction = session.beginTransaction();
-        for(K object : objects) {
-            session.delete(object);
-        }
-        transaction.commit();
-
-        
-    }
-
-    public List<K> getFilteredListOfObjects(Map<String, List<Pair<String, Object>>> filtersMap, Class clazz){
-
-        Transaction transaction = session.beginTransaction();
-
-        List<K> listOfObjects = selectFromTable(setupSessionWithFilters(session, filtersMap), clazz.getSimpleName());
-
-        transaction.commit();
-        
-        return listOfObjects;
-
-    }
-
-    private Session setupSessionWithFilters(Session session, Map<String, List<Pair<String, Object>>> filtersMap){
-
-
-
-
-
-        return session;
-    }
-
-    private List<K> selectFromTable(Session session, String tableName){
-        Query<K> query = session.createQuery("FROM " + tableName);
+        Query<T> query = session.createQuery(criteriaQuery.select(root).where(predicateProvider.apply(cb, root)));
 
         return query.getResultList();
+    }
+
+
+    protected void saveObjectToDb(Object object){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(object);
+
+        transaction.commit();
+
+        session.close();
+    }
+
+    protected Object removeObjectFromDb(Object object){
+        Session session = sessionFactory.openSession();
+
+        Transaction transaction = session.beginTransaction();
+
+        session.delete(object);
+
+        transaction.commit();
+
+        session.close();
+
+        return object;
+    }
+
+    public <T, V> Predicate createEqualPredicate(String key, V value, CriteriaBuilder cb, Root<T> root) {
+        return cb.equal(root.get(key), value);
+    }
+
+    public <T, V extends Comparable<? super V>> Predicate createLessThanPredicate(String key, V value, CriteriaBuilder cb, Root<T> root) {
+        return cb.lessThan(root.get(key), value);
+    }
+
+    public <T, V extends Comparable<? super V>> Predicate createGreaterThanPredicate(String key, V value, CriteriaBuilder cb, Root<T> root) {
+        return cb.greaterThan(root.get(key), value);
     }
 
 }

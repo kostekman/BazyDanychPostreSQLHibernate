@@ -2,6 +2,9 @@ package edu.agh.bazyprojekt.model;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -22,7 +25,7 @@ public class Order {
     private String shipPostalCode;
     private String shipCountry;
     @Cascade(value= org.hibernate.annotations.CascadeType.ALL)
-    private List<OrderDetails> orderDetails;
+    private Collection<OrderDetails> orderDetails;
     private Customer customer;
     private Employee employee;
     private Shipper shippedBy;
@@ -177,15 +180,17 @@ public class Order {
         return result;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public List<OrderDetails> getOrderDetails() {
+    public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetails> orderDetailsByOrderid) {
+    public void setOrderDetails(Collection<OrderDetails> orderDetailsByOrderid) {
         this.orderDetails = orderDetailsByOrderid;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customerid", referencedColumnName = "customerid")
     public Customer getCustomer() {
@@ -196,6 +201,7 @@ public class Order {
         this.customer = customersByCustomerid;
     }
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "employeeid", referencedColumnName = "employeeid")
     public Employee getEmployee() {
@@ -206,6 +212,7 @@ public class Order {
         this.employee = employeesByEmployeeid;
     }
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "shipvia", referencedColumnName = "shipperid")
     public Shipper getShippedBy() {
