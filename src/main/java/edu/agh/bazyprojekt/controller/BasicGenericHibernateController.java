@@ -36,7 +36,7 @@ public class BasicGenericHibernateController<K> {
 
     }
 
-    private List<K> selectFromTable(String tableName){
+    public List<K> selectFromTable(String tableName){
         Query<K> query = session.createQuery("FROM " + tableName);
 
         return query.getResultList();
