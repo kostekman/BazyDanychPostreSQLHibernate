@@ -25,7 +25,7 @@ public class Order {
     private String shipPostalCode;
     private String shipCountry;
     @Cascade(value= org.hibernate.annotations.CascadeType.ALL)
-    private List<OrderDetails> orderDetails;
+    private Collection<OrderDetails> orderDetails;
     private Customer customer;
     private Employee employee;
     private Shipper shippedBy;
