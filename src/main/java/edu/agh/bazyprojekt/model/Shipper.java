@@ -1,5 +1,8 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -64,6 +67,7 @@ public class Shipper {
         return result;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "shippedBy")
     public Collection<Order> getOrders() {
         return orders;

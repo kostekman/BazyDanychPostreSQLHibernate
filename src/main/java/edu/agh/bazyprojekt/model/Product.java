@@ -2,6 +2,8 @@ package edu.agh.bazyprojekt.model;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -138,6 +140,7 @@ public class Product {
         return result;
     }
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "product")
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;

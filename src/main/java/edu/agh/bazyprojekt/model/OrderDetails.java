@@ -1,5 +1,7 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -91,6 +93,7 @@ public class OrderDetails implements Serializable {
         return result;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "orderid", referencedColumnName = "orderid", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
@@ -101,6 +104,7 @@ public class OrderDetails implements Serializable {
         this.order = ordersByOrderid;
     }
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "productid", referencedColumnName = "productid", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
