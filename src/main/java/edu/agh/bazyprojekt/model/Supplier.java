@@ -20,7 +20,6 @@ public class Supplier {
     private String phone;
     private String fax;
     private String homepage;
-    @Cascade(value = org.hibernate.annotations.CascadeType.PERSIST)
     private Collection<Product> products;
 
     @Id
@@ -187,7 +186,7 @@ public class Supplier {
         return result;
     }
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = false)
     public Collection<Product> getProducts() {
         return products;
     }
