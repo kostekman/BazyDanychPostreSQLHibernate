@@ -1,5 +1,6 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -57,6 +58,7 @@ public class Category {
         this.picture = picture;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     public Collection<Product> getProductsInCategory() {
         return productsInCategory;

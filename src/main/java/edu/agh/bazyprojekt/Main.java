@@ -15,19 +15,6 @@ public class Main {
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
-
-//        OrderController orderController = new HibernateOrderController();
-//        EmployeeController employeeController = new HibernateEmployeeController();
-//
-//        Employee newEmployee = new Employee();
-//        newEmployee.setFirstName("Dawid");
-//        newEmployee.setLastName("Krzyszycha");
-//        employeeController.createNewEmployee(newEmployee);
-//
-//        Order order = orderController.getOrderById(3);
-//        System.out.print(order);
-//        Employee employee = employeeController.getEmployeeByFirstName("Nancy");
-//        System.out.print(employee);
     }
 
     @Bean
