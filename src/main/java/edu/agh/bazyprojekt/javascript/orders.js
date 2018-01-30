@@ -75,6 +75,7 @@ function openOrderModal(orderId) {
 }
 
 function openOrderCreateModal() {
+    loadProductsToNewOrder('productsTableBodyModalOrder');
     $('#orderCreateModal').modal('show');
 }
 function openOrderRemoveModal() {
@@ -88,3 +89,28 @@ for (i = 0; i < orders.length; i++) {
         "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openOrderRemoveModal()\">X</button></td>";
 }
 orderTable.innerHTML = text;
+var request = new XMLHttpRequest();
+
+function  getAllOrders () {
+    var url = 'http://localhost:8080/readEmployees';
+    // fetch(url)
+    //     .then(function(data) {
+    //         console.log(data);
+    //         // Here you get the data to modify as you please
+    //     });
+    // $.post(url, function(data) {
+    //     console.log(data);
+    //     // Here you get the data to modify as you please
+    // })
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            "name":"test"
+        },
+        dataType:'JSON',
+        contentType : 'application/json; charset=UTF-8'
+    });
+}
+
+getAllOrders();
