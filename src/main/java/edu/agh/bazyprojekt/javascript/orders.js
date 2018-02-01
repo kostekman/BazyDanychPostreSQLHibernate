@@ -104,12 +104,13 @@ function  getAllOrders () {
     // })
     $.ajax({
         type: "POST",
+        contentType : 'application/json; charset=UTF-8',
         url: url,
         data: {
             "name":"test"
         },
-        dataType:'JSON',
-        contentType : 'application/json; charset=UTF-8'
+        dataType:'JSON'
+
     });
 }
 

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.Validate.notNull;
 import static org.springframework.util.Assert.notNull;
 
 @Component
