@@ -1,5 +1,6 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -186,6 +187,7 @@ public class Supplier {
         return result;
     }
 
+    @JsonBackReference
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, orphanRemoval = false)
     public Collection<Product> getProducts() {
         return products;

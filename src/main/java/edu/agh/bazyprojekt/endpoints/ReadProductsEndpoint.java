@@ -1,29 +1,30 @@
 package edu.agh.bazyprojekt.endpoints;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import edu.agh.bazyprojekt.controller.OrderController;
-import edu.agh.bazyprojekt.model.Order;
+import edu.agh.bazyprojekt.controller.ProductController;
+import edu.agh.bazyprojekt.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import edu.agh.bazyprojekt.model.ReadOrdersRq;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping("/readOrders")
-public class ReadOrdersEndpoint {
+@RequestMapping("/readProducts")
+public class ReadProductsEndpoint {
 
     @Autowired
-    OrderController orderController;
+    ProductController productController;
 
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
-    List<Order> read(@RequestBody ReadOrdersRq query) throws OperationNotSupportedException, JsonProcessingException {
-        return orderController.getOrder(query);
+    List<Product> read(@RequestBody Map<String,String> restrictions) throws OperationNotSupportedException, JsonProcessingException {
+        return productController.getProduct(restrictions);
     }
 }
+

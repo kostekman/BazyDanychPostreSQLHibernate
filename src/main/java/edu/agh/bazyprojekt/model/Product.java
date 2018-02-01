@@ -149,6 +149,7 @@ public class Product {
         this.orderDetails = orderDetailsByProductid;
     }
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "supplierid", referencedColumnName = "supplierid")
     public Supplier getSupplier() {
@@ -159,6 +160,7 @@ public class Product {
         this.supplier = suppliersBySupplierid;
     }
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
     public Category getCategory() {
