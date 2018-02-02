@@ -42,7 +42,7 @@ public class HibernateEmployeeController extends HibernateController implements 
     }
 
     @Override
-    public List<Employee> getEmployeeByFirstName(Map<String, String> restrictions) {
+    public List<Employee> getEmployee(Map<String, String> restrictions) {
         return findObjects(Employee.class, getPredicateProvider(restrictions));
     }
 

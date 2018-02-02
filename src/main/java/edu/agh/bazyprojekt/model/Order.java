@@ -31,8 +31,8 @@ public class Order {
     private Shipper shippedBy;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "orderid", updatable = false, nullable = false)
     public short getOrderId() {
         return orderId;
     }

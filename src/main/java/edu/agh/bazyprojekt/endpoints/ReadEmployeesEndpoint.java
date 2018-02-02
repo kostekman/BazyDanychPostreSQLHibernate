@@ -21,6 +21,6 @@ public class ReadEmployeesEndpoint {
     @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody
     List<Employee> read(@RequestBody Map<String ,String> query) throws OperationNotSupportedException, JsonProcessingException {
-        return employeeController.getEmployeeByFirstName(query);
+        return employeeController.getEmployee(query);
     }
 }

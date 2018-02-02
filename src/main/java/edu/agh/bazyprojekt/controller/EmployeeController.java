@@ -10,5 +10,5 @@ public interface EmployeeController {
     void alterEmployee(Employee employee);
     Employee removeEmployee(Employee employee);
     Employee getEmployeeById(int id);
-    List<Employee> getEmployeeByFirstName(Map<String,String> restrictions);
+    List<Employee> getEmployee(Map<String,String> restrictions);
 }
