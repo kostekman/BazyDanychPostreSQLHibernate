@@ -18,6 +18,7 @@ public abstract class HibernateController {
 
     protected <T> List<T> findObjects(Class<T> clazz, BiFunction<CriteriaBuilder, Root<T>, Predicate> predicateProvider){
         Session session = sessionFactory.openSession();
+
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = cb.createQuery(clazz);
         Root<T> root = criteriaQuery.from(clazz);

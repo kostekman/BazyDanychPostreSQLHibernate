@@ -9,6 +9,5 @@ public interface EmployeeController {
     void createNewEmployee(Employee employee);
     void alterEmployee(Employee employee);
     Employee removeEmployee(Employee employee);
-    Employee getEmployeeById(int id);
     List<Employee> getEmployee(Map<String,String> restrictions);
 }

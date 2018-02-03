@@ -30,16 +30,6 @@ public class HibernateEmployeeController extends HibernateController implements 
         return (Employee) removeObjectFromDb(employee);
     }
 
-    @Override
-    public Employee getEmployeeById(int id) {
-        Session session = sessionFactory.openSession();
-
-        Query<Employee> query = session.createQuery("FROM Employee e where e.id = :id");
-        query.setParameter("id", (short) id);
-        Employee employee = query.stream().findFirst().orElse(null);
-        session.close();
-        return employee;
-    }
 
     @Override
     public List<Employee> getEmployee(Map<String, String> restrictions) {

@@ -1,7 +1,6 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Order;
-import edu.agh.bazyprojekt.model.ReadOrdersRq;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,5 +11,5 @@ public interface OrderController {
     Order mapJSONToOrder(HashMap<String,String> json);
     void alterOrder(Order order);
     Order removeOrder(Order order);
-    List<Order> getOrder(ReadOrdersRq rq);
+    List<Order> getOrder(Map<String, String> query);
 }
