@@ -23,7 +23,7 @@ public abstract class HibernateController {
         CriteriaQuery<T> criteriaQuery = cb.createQuery(clazz);
         Root<T> root = criteriaQuery.from(clazz);
 
-        Query<T> query = session.createQuery((javax.persistence.criteria.CriteriaDelete) criteriaQuery.select(root).where(predicateProvider.apply(cb, root)));
+        Query<T> query = session.createQuery(criteriaQuery.select(root).where(predicateProvider.apply(cb, root)));
 
         return query.getResultList();
     }

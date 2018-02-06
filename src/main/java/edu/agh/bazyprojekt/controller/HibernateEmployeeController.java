@@ -1,8 +1,6 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Employee;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.CriteriaBuilder;

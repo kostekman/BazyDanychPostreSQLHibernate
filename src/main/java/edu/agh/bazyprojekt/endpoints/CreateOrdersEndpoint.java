@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/createOrders")
+@RequestMapping("/orders/createOrders")
 public class CreateOrdersEndpoint {
     @Autowired
     OrderController orderController;

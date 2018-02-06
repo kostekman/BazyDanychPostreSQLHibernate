@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/deleteOrders")
+@RequestMapping("/orders/deleteOrders")
 public class DeleteOrdersEndpoint {
     @Autowired
     OrderController orderController;

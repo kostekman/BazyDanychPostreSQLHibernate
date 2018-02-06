@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/readProducts")
+@RequestMapping("/products/readProducts")
 public class ReadProductsEndpoint {
 
     @Autowired

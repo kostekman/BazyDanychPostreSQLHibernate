@@ -5,10 +5,7 @@ import edu.agh.bazyprojekt.controller.OrderController;
 import edu.agh.bazyprojekt.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import edu.agh.bazyprojekt.model.ReadOrdersRq;
 
 import javax.naming.OperationNotSupportedException;
@@ -16,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/readOrders")
+@RequestMapping("/orders/readOrders")
 public class ReadOrdersEndpoint {
 
     @Autowired

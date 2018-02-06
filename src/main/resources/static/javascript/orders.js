@@ -92,7 +92,7 @@ orderTable.innerHTML = text;
 var request = new XMLHttpRequest();
 
 function  getAllOrders () {
-    var url = 'http://localhost:8080/readEmployees';
+    var url = 'http://localhost:8080/orders/readOrders';
     // fetch(url)
     //     .then(function(data) {
     //         console.log(data);
@@ -106,11 +106,9 @@ function  getAllOrders () {
         type: "POST",
         contentType : 'application/json; charset=UTF-8',
         url: url,
-        data: {
-            "name":"test"
-        },
-        dataType:'JSON'
-
+        data: JSON.stringify({
+            orderId:2
+        })
     });
 }
 
