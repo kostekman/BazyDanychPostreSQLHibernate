@@ -20,6 +20,11 @@ public class HibernateProductController extends HibernateController implements P
     }
 
     @Override
+    public Product mapJSONToProduct(Map<String, String> json) {
+        return null;
+    }
+
+    @Override
     public void updateProduct(Product product) {
         createNewProduct(product);
     }

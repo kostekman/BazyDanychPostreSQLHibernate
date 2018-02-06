@@ -1,30 +1,31 @@
 package edu.agh.bazyprojekt.endpoints;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.agh.bazyprojekt.controller.OrderController;
 import edu.agh.bazyprojekt.model.Order;
+import edu.agh.bazyprojekt.model.ReadOrdersRq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import edu.agh.bazyprojekt.model.ReadOrdersRq;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/readOrders")
-public class ReadOrdersEndpoint {
-
+@RequestMapping("/deleteOrders")
+public class DeleteOrdersEndpoint {
     @Autowired
     OrderController orderController;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.DELETE)
     public @ResponseBody
-    List<Order> read(@RequestBody Map<String, String> query) throws OperationNotSupportedException, JsonProcessingException {
-        return orderController.getOrder(query);
+    boolean create(@RequestBody Map<String ,String> query){
+        orderController
+                .getOrder(query)
+                .forEach((i) -> orderController.removeOrder(i));
+
+        return true;
     }
 }
