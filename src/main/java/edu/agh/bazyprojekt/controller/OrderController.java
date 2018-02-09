@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface OrderController {
     void createNewOrder(Order order);
-    Order mapJSONToOrder(HashMap<String,String> json);
+    Order mapJSONToOrder(Map<String,String> json);
     void alterOrder(Order order);
     Order removeOrder(Order order);
     List<Order> getOrder(Map<String, String> query);

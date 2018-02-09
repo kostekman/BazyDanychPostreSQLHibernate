@@ -1,6 +1,7 @@
 package edu.agh.bazyprojekt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -58,7 +59,7 @@ public class Category {
         this.picture = picture;
     }
 
-    @JsonBackReference
+    @JsonManagedReference(value="category-product")
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     public Collection<Product> getProductsInCategory() {
         return productsInCategory;

@@ -1,8 +1,12 @@
 package edu.agh.bazyprojekt.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import edu.agh.bazyprojekt.model.Order;
+import edu.agh.bazyprojekt.model.OrderDetails;
 import edu.agh.bazyprojekt.model.ReadOrdersRq;
 import org.springframework.stereotype.Component;
+import springfox.documentation.spring.web.json.Json;
+import springfox.documentation.spring.web.json.JsonSerializer;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -12,6 +16,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -26,22 +31,22 @@ public class HibernateOrderController extends HibernateController implements Ord
     }
 
     @Override
-    public Order mapJSONToOrder(HashMap<String, String> json) {
+    public Order mapJSONToOrder(Map<String, String> json) {
         Order newOrder = new Order();
         CustomerController customerController = new HibernateCustomerController();
         EmployeeController employeeController = new HibernateEmployeeController();
         ShipperController shipperController = new HibernateShipperController();
 
         Map<String,String> customerRestrictions = new HashMap<>();
-        customerRestrictions.put("customerID",json.get("customerID"));
+        customerRestrictions.put("customerID", "ALFKI" );
         newOrder.setCustomer(customerController.getCustomer(customerRestrictions).get(0));
 
         Map<String,String> employeeRestrictions = new HashMap<>();
-        customerRestrictions.put("employeeId",json.get("employeeId") );
+        customerRestrictions.put("employeeId", "1" );
         newOrder.setEmployee(employeeController.getEmployee(employeeRestrictions).get(0));
 
         Map<String,String> shipperRestrictions = new HashMap<>();
-        shipperRestrictions.put("shipperId", json.get("shipperId"));
+        shipperRestrictions.put("shipperId", "1" );
         newOrder.setShippedBy(shipperController.getShipper(shipperRestrictions).get(0));
 
         newOrder.setFreight(Float.parseFloat(json.get("freight")));

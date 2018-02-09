@@ -257,7 +257,7 @@ public class Employee {
         return result;
     }
 
-    @JsonBackReference
+    @JsonBackReference(value="employee-employee")
     @ManyToOne
     @JoinColumn(name = "reportsto", referencedColumnName = "employeeid")
     public Employee getReportsTo() {
@@ -268,7 +268,7 @@ public class Employee {
         this.reportsTo = employeesByReportsto;
     }
 
-    @JsonManagedReference
+    @JsonManagedReference(value="employee-employee")
     @OneToMany(mappedBy = "reportsTo", cascade = CascadeType.DETACH)
     public Collection<Employee> getManagedEmployees() {
         return managedEmployees;
@@ -278,7 +278,7 @@ public class Employee {
         this.managedEmployees = employeesByEmployeeid;
     }
 
-    @JsonBackReference
+    @JsonManagedReference(value="employee-orders")
     @OneToMany(mappedBy = "employee")
     public Collection<Order> getManagedOrders() {
         return managedOrders;

@@ -1,5 +1,6 @@
 package edu.agh.bazyprojekt.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -139,7 +140,7 @@ public class Product {
         return result;
     }
 
-    @JsonManagedReference
+    @JsonManagedReference(value="orderDetails-product")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = false)
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
@@ -149,7 +150,7 @@ public class Product {
         this.orderDetails = orderDetailsByProductid;
     }
 
-    @JsonManagedReference
+    @JsonBackReference(value="supplier-products")
     @ManyToOne
     @JoinColumn(name = "supplierid", referencedColumnName = "supplierid")
     public Supplier getSupplier() {
@@ -160,7 +161,7 @@ public class Product {
         this.supplier = suppliersBySupplierid;
     }
 
-    @JsonManagedReference
+    @JsonBackReference(value="category-product")
     @ManyToOne
     @JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
     public Category getCategory() {

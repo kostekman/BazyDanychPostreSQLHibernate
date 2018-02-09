@@ -67,7 +67,7 @@ public class Shipper {
         return result;
     }
 
-    @JsonBackReference
+    @JsonManagedReference(value="order-shipper")
     @OneToMany(mappedBy = "shippedBy")
     public Collection<Order> getOrders() {
         return orders;

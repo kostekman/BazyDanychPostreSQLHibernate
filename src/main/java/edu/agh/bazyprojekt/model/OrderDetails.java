@@ -93,7 +93,7 @@ public class OrderDetails implements Serializable {
         return result;
     }
 
-    @JsonBackReference
+    @JsonBackReference(value="orderDetails-order")
     @ManyToOne
     @JoinColumn(name = "orderid", referencedColumnName = "orderid", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
@@ -104,7 +104,7 @@ public class OrderDetails implements Serializable {
         this.order = ordersByOrderid;
     }
 
-    @JsonBackReference
+    @JsonBackReference(value="orderDetails-product")
     @ManyToOne
     @JoinColumn(name = "productid", referencedColumnName = "productid", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
@@ -119,7 +119,7 @@ public class OrderDetails implements Serializable {
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Product: " + this.getProduct().getProductName() + "\n");
+        sb.append("ProductID: " + this.getProductId() + "\n");
         sb.append("Quantity: " + this.getQuantity() + "\n");
         sb.append("Price: " + this.getUnitPrice() * (1 - this.getDiscount()) + "\n");
 

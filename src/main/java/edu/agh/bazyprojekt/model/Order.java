@@ -180,7 +180,7 @@ public class Order {
         return result;
     }
 
-    @JsonManagedReference
+    @JsonManagedReference(value="orderDetails-order")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = false)
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
@@ -190,7 +190,7 @@ public class Order {
         this.orderDetails = orderDetailsByOrderid;
     }
 
-    @JsonBackReference
+    @JsonBackReference(value="customer-order")
     @ManyToOne
     @JoinColumn(name = "customerid", referencedColumnName = "customerid")
     public Customer getCustomer() {
@@ -201,7 +201,7 @@ public class Order {
         this.customer = customersByCustomerid;
     }
 
-    @JsonManagedReference
+    @JsonBackReference(value="employee-orders")
     @ManyToOne
     @JoinColumn(name = "employeeid", referencedColumnName = "employeeid")
     public Employee getEmployee() {
@@ -212,7 +212,7 @@ public class Order {
         this.employee = employeesByEmployeeid;
     }
 
-    @JsonManagedReference
+    @JsonBackReference(value="order-shipper")
     @ManyToOne
     @JoinColumn(name = "shipvia", referencedColumnName = "shipperid")
     public Shipper getShippedBy() {

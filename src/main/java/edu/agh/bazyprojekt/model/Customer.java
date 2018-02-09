@@ -173,7 +173,7 @@ public class Customer {
         return result;
     }
 
-    @JsonManagedReference
+    @JsonManagedReference(value="customer-order")
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<Order> getOrders() {
         return orders;
