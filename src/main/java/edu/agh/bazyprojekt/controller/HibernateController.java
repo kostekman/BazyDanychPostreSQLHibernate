@@ -25,7 +25,10 @@ public abstract class HibernateController {
 
         Query<T> query = session.createQuery(criteriaQuery.select(root).where(predicateProvider.apply(cb, root)));
 
-        return query.getResultList();
+        List<T> results = query.getResultList();
+        session.close();
+
+        return results;
     }
 
 

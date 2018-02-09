@@ -181,7 +181,7 @@ public class Order {
     }
 
     @JsonManagedReference(value="orderDetails-order")
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
     public Collection<OrderDetails> getOrderDetails() {
         return orderDetails;
     }

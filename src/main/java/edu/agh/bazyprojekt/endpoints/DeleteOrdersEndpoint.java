@@ -24,7 +24,7 @@ public class DeleteOrdersEndpoint {
     boolean create(@RequestBody Map<String ,String> query){
         orderController
                 .getOrder(query)
-                .forEach((i) -> orderController.removeOrder(i));
+                .forEach((order) -> orderController.removeOrder(order));
 
         return true;
     }
