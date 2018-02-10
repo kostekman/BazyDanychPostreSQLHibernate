@@ -33,8 +33,8 @@ public class UpdateOrdersEndpoint {
         orderRestriction.put("orderId",json.get("orderId"));
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         Order orderToUpdate = orderController.getOrder(orderRestriction, session).get(0);
-        orderController.mergeOrders(orderToUpdate, orderController.mapJSONToOrder(json));
-
+        orderToUpdate = orderController.mergeOrders(orderToUpdate, orderController.mapJSONToOrder(json));
+        session.update(orderToUpdate);
         session.close();
 
         return true;
