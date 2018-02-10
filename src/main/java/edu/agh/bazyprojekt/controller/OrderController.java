@@ -12,4 +12,5 @@ public interface OrderController {
     void alterOrder(Order order);
     Order removeOrder(Order order);
     List<Order> getOrder(Map<String, String> query);
+    Order mergeOrders(Order oldOrder, Order newOrder);
 }

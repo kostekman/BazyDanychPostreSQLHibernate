@@ -43,6 +43,18 @@ public abstract class HibernateController {
         session.close();
     }
 
+    protected void updateObjectInDb(String objectId, Object newObject){
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        Object oldObject = session.get(newObject.getClass(),Integer.parseInt(objectId));
+        session.update(newObject);
+
+        transaction.commit();
+
+        session.close();
+    }
+
     protected Object removeObjectFromDb(Object object){
         Session session = sessionFactory.openSession();
 

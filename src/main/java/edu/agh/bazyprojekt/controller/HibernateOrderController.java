@@ -1,27 +1,18 @@
 package edu.agh.bazyprojekt.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import edu.agh.bazyprojekt.model.Order;
-import edu.agh.bazyprojekt.model.OrderDetails;
-import edu.agh.bazyprojekt.model.ReadOrdersRq;
 import org.springframework.stereotype.Component;
-import springfox.documentation.spring.web.json.Json;
-import springfox.documentation.spring.web.json.JsonSerializer;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.time.LocalDate;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.Validate.notNull;
-import static org.springframework.util.Assert.notNull;
 
 @Component
 public class HibernateOrderController extends HibernateController implements OrderController {
@@ -37,35 +28,44 @@ public class HibernateOrderController extends HibernateController implements Ord
         EmployeeController employeeController = new HibernateEmployeeController();
         ShipperController shipperController = new HibernateShipperController();
 
-        Map<String,String> customerRestrictions = new HashMap<>();
-        customerRestrictions.put("customerID", "ALFKI" );
-        newOrder.setCustomer(customerController.getCustomer(customerRestrictions).get(0));
+        if ( json.get("customerID") != null){
 
-        Map<String,String> employeeRestrictions = new HashMap<>();
-        customerRestrictions.put("employeeId", "1" );
-        newOrder.setEmployee(employeeController.getEmployee(employeeRestrictions).get(0));
+            Map<String,String> customerRestrictions = new HashMap<>();
+            customerRestrictions.put("customerID", json.get("customerID") );
+            newOrder.setCustomer(customerController.getCustomer(customerRestrictions).get(0));
+        }
 
-        Map<String,String> shipperRestrictions = new HashMap<>();
-        shipperRestrictions.put("shipperId", "1" );
-        newOrder.setShippedBy(shipperController.getShipper(shipperRestrictions).get(0));
+        if ( json.get("employeeId") != null){
+            Map<String,String> employeeRestrictions = new HashMap<>();
+            employeeRestrictions.put("employeeId", json.get("employeeId") );
+            newOrder.setEmployee(employeeController.getEmployee(employeeRestrictions).get(0));
+        }
 
-        newOrder.setFreight(Float.parseFloat(json.get("freight")));
-        newOrder.setOrderDate( java.sql.Date.valueOf(LocalDate.now()));
-        newOrder.setRequiredDate(java.sql.Date.valueOf(json.get("requiredDate")));
-        newOrder.setShipAddress(json.get("shipAddress"));
-        newOrder.setShipCity(json.get("shipCity"));
-        newOrder.setShipCountry(json.get("shipCountry"));
-        newOrder.setShipName(json.get("shipName"));
-        newOrder.setShipPostalCode(json.get("shipPostalCode"));
-        newOrder.setShipRegion(json.get("shipRegion"));
+        if ( json.get("shipperId") != null){
+            Map<String,String> shipperRestrictions = new HashMap<>();
+            shipperRestrictions.put("shipperId", json.get("shipperId") );
+            newOrder.setShippedBy(shipperController.getShipper(shipperRestrictions).get(0));
+        }
+
+        if ( json.get("freight") != null) newOrder.setFreight(Float.parseFloat(json.get("freight")));
+        if ( json.get("orderDate") != null) newOrder.setOrderDate( java.sql.Date.valueOf(json.get("orderDate")));
+        if ( json.get("requiredDate") != null)  newOrder.setRequiredDate(java.sql.Date.valueOf(json.get("requiredDate")));
+        if ( json.get("shipAddress") != null) newOrder.setShipAddress(json.get("shipAddress"));
+        if ( json.get("shipCity") != null) newOrder.setShipCity(json.get("shipCity"));
+        if ( json.get("shipCountry") != null) newOrder.setShipCountry(json.get("shipCountry"));
+        if ( json.get("shipName") != null) newOrder.setShipName(json.get("shipName"));
+        if ( json.get("shipPostalCode") != null) newOrder.setShipPostalCode(json.get("shipPostalCode"));
+        if ( json.get("shipRegion") != null) newOrder.setShipRegion(json.get("shipRegion"));
 
         return newOrder;
     }
 
     @Override
-    public void alterOrder(Order order) {
-        createNewOrder(order);
+    public void alterOrder(Order newValues) {
+        createNewOrder(newValues);
+
     }
+
 
     @Override
     public Order removeOrder(Order order) {
@@ -74,6 +74,21 @@ public class HibernateOrderController extends HibernateController implements Ord
 
     public List<Order> getOrder(Map<String, String> query){
         return findObjects(Order.class, getPredicateProvider(query));
+    }
+
+    @Override
+    public Order mergeOrders(Order oldOrder, Order newOrder) {
+        if (newOrder.getOrderDate() != null ) oldOrder.setOrderDate(newOrder.getOrderDate());
+        if (newOrder.getRequiredDate() != null ) oldOrder.setRequiredDate(newOrder.getRequiredDate());
+        if (newOrder.getShippedDate() != null) oldOrder.setShippedDate(newOrder.getShippedDate());
+        if (newOrder.getFreight() != null) oldOrder.setFreight(newOrder.getFreight());
+        if (newOrder.getShipName() != null ) oldOrder.setShipName(newOrder.getShipName());
+        if (newOrder.getShipAddress() != null ) oldOrder.setShipAddress(newOrder.getShipAddress());
+        if (newOrder.getShipCity() != null) oldOrder.setShipCity(newOrder.getShipCity());
+        if (newOrder.getShipRegion() != null) oldOrder.setShipRegion(newOrder.getShipRegion());
+        if (newOrder.getShipPostalCode() != null) oldOrder.setShipPostalCode(newOrder.getShipPostalCode());
+        if (newOrder.getShipCountry() != null) oldOrder.setShipCountry(newOrder.getShipCountry());
+        return oldOrder;
     }
 
     private BiFunction<CriteriaBuilder, Root<Order>, Predicate> getPredicateProvider(Map<String, String> query ){
