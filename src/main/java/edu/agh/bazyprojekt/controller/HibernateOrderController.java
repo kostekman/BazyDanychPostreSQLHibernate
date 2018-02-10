@@ -1,6 +1,7 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Order;
+import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -75,6 +76,11 @@ public class HibernateOrderController extends HibernateController implements Ord
     public List<Order> getOrder(Map<String, String> query){
         return findObjects(Order.class, getPredicateProvider(query));
     }
+
+    public List<Order> getOrder(Map<String, String> query, Session session){
+        return findObjects(Order.class, getPredicateProvider(query), session);
+    }
+
 
     @Override
     public Order mergeOrders(Order oldOrder, Order newOrder) {
