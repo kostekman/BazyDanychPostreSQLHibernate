@@ -30,6 +30,19 @@ public abstract class HibernateController {
 
         return results;
     }
+    protected <T> List<T> findObjects(Class<T> clazz, BiFunction<CriteriaBuilder, Root<T>, Predicate> predicateProvider, Session session){
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = cb.createQuery(clazz);
+        Root<T> root = criteriaQuery.from(clazz);
+
+        Query<T> query = session.createQuery(criteriaQuery.select(root).where(predicateProvider.apply(cb, root)));
+
+        List<T> results = query.getResultList();
+
+        return results;
+    }
+
 
 
     protected void saveObjectToDb(Object object){
