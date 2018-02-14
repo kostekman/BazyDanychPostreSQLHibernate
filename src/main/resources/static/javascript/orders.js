@@ -1,59 +1,64 @@
 var i = 0;
-var orders = [
-    {
-        id: 1223,
-        customerId: 'nanan',
-        employeeId: 213432,
-        orderDate: 22,
-        requiredDate: 32,
-        shippedDate: 23,
-        shipVia: 23,
-        freight: 32,
-        shipName: 324114324,
-        shipAdress: 0.3,
-        shipCity: 'Krakow',
-        shipRegion: 'Europa',
-        shipPostalCode: '23eeqw',
-        shipCountry: 'Polska'
-    },
-    {
-        id: 1,
-        customerId: 'nanan',
-        employeeId: 213432,
-        orderDate: 22,
-        requiredDate: 32,
-        shippedDate: 23,
-        shipVia: 23,
-        freight: 32,
-        shipName: 324114324,
-        shipAdress: 0.3,
-        shipCity: 'Krakow',
-        shipRegion: 'Europa',
-        shipPostalCode: '23eeqw',
-        shipCountry: 'Polska'
-    },
-    {
-        id: 23,
-        customerId: 'nanan',
-        employeeId: 213432,
-        orderDate: 22,
-        requiredDate: 32,
-        shippedDate: 23,
-        shipVia: 23,
-        freight: 32,
-        shipName: 324114324,
-        shipAdress: 0.3,
-        shipCity: 'Krakow',
-        shipRegion: 'Europa',
-        shipPostalCode: '23eeqw',
-        shipCountry: 'Polska'
-    }
-];
+var request = new XMLHttpRequest();
+var allOrders = [];
+var filterOrders = [];
+var noDataWarning = "<div class='alert alert-warning'> No data</div>";
+function  getAllOrders () {
+    var url = 'http://localhost:8080/orders/readOrders';
+    $.ajax({
+        type: "POST",
+        contentType : 'application/json; charset=UTF-8',
+        url: url,
+        success: function (res) {
+            allOrders = res;
+            loadOrders(allOrders);
+        },
+        data: JSON.stringify({
+        })
+    });
 
-var ordersMap = new Map();
-for (i = 0; i < orders.length; i++) {
-    ordersMap.set(orders[i].id, orders[i]);
 }
+function  getOrdersById (id) {
+    var url = 'http://localhost:8080/orders/readOrders';
+    $.ajax({
+        type: "POST",
+        contentType : 'application/json; charset=UTF-8',
+        url: url,
+        success: function (res) {
+            filterOrders = res;
+            if(res.length == 0){
+                document.getElementById('ordersTableBody').innerHTML = noDataWarning;
+            }else {
+                loadOrders(filterOrders);
+            }
+
+        },
+        data: JSON.stringify({
+            orderId: id
+        })
+    });
+}
+function getOrdersByCountry(country) {
+    var url = 'http://localhost:8080/orders/readOrders';
+    $.ajax({
+        type: "POST",
+        contentType : 'application/json; charset=UTF-8',
+        url: url,
+        success: function (res) {
+            filterOrders = res;
+            if(res.length == 0){
+                document.getElementById('ordersTableBody').innerHTML = noDataWarning;
+            }else {
+                loadOrders(filterOrders);
+            }
+
+        },
+        data: JSON.stringify({
+            shipCountry: country
+        })
+    });
+}
+
 
 function openOrderModal(orderId) {
 
@@ -73,7 +78,6 @@ function openOrderModal(orderId) {
     $('#shipCountry').val(order.shipCountry);
     $('#orderModal').modal('show');
 }
-
 function openOrderCreateModal() {
     loadProductsToNewOrder('productsTableBodyModalOrder');
     $('#orderCreateModal').modal('show');
@@ -81,35 +85,37 @@ function openOrderCreateModal() {
 function openOrderRemoveModal() {
     $('#orderRemoveModal').modal('show');
 }
-var orderTable = document.getElementById('ordersTableBody');
-
-var text = '';
-for (i = 0; i < orders.length; i++) {
-    text = text + "<tr><th>" + orders[i].id + "</th><td>" + orders[i].customerId + "</td><td>" + orders[i].employeeId + "</td><td>" + orders[i].orderDate + "</td><td>" + orders[i].requiredDate + "</td><td>" + orders[i].shipVia + "</td><td>" + orders[i].freight + "</td><td>" + orders[i].shipName + "</td><td>" + orders[i].shipAdress + "</td><td>" + orders[i].shipCity + "</td><td>" + orders[i].shipRegion + "</td><td>" + orders[i].shipPostalCode + "</td><td>" + orders[i].shipCountry +"</td><td class='buttonTd'><button type=\"button\" class=\"m_right_7 btn btn-primary btn-sm\" onclick=\"openOrderModal(" + orders[i].id + ")\">\n" +
-        "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openOrderRemoveModal()\">X</button></td>";
+function loadOrders(ordersList){
+    var ordersMap = new Map();
+    for (i = 0; i < ordersList.length; i++) {
+        ordersMap.set(ordersList[i].id, ordersList[i]);
+    }
+    var orderTable = document.getElementById('ordersTableBody');
+    var text = '';
+    for (i = 0; i < ordersList.length; i++) {
+        text = text + "<tr><th>" + ordersList[i].orderId + "</th><td>" + ordersList[i].shipCountry + "</td><td>" + ordersList[i].shipName + "</td><td>" + ordersList[i].orderDate + "</td><td>" + ordersList[i].requiredDate + "</td><td>" + ordersList[i].shippedDate + "</td><td class='buttonTd'><button type=\"button\" class=\"m_right_7 btn btn-primary btn-sm\" onclick=\"openOrderModal(" + ordersList[i].id + ")\">\n" +
+            "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openOrderRemoveModal()\">X</button></td>";
+    }
+    orderTable.innerHTML = text;
 }
-orderTable.innerHTML = text;
-var request = new XMLHttpRequest();
+function filterOrdersFun(type){
+    var filterValue = document.getElementById('ordersInputSearch').value;
+    if(filterValue === ''){
+        getAllOrders();
+    }else{
+        switch(type){
+            case 1:
+                getOrdersById(filterValue);
+                break;
+            case 2:
+                getOrdersByCountry(filterValue);
+                break;
+            default:
+                break;
+        }
 
-function  getAllOrders () {
-    var url = 'http://localhost:8080/orders/readOrders';
-    // fetch(url)
-    //     .then(function(data) {
-    //         console.log(data);
-    //         // Here you get the data to modify as you please
-    //     });
-    // $.post(url, function(data) {
-    //     console.log(data);
-    //     // Here you get the data to modify as you please
-    // })
-    $.ajax({
-        type: "POST",
-        contentType : 'application/json; charset=UTF-8',
-        url: url,
-        data: JSON.stringify({
-            orderId:2
-        })
-    });
+    }
 }
 
 getAllOrders();
+
