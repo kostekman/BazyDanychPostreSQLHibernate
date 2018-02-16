@@ -1,10 +1,11 @@
 <h3 class="m_20_0">ORDERS</h3>
 <button type="button" class="m_bottom_20 btn btn-success btn-sm" onclick="openOrderCreateModal()">+ new order</button>
 <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Search"
-           aria-describedby="basic-addon2">
+    <input type="text" class="form-control" placeholder="Id" aria-label="Search"
+           aria-describedby="basic-addon2" id="ordersInputSearch">
     <div class="input-group-append">
-        <button class="btn btn-outline-secondary"  type="button">Search</button>
+        <button class="btn btn-outline-secondary"  type="button" onclick="filterOrdersFun(2)">Search by Country</button>
+        <button class="btn btn-outline-secondary"  type="button" onclick="filterOrdersFun(1)">Search by Id</button>
     </div>
 </div>
 
@@ -12,20 +13,13 @@
 <table class="table">
     <thead class="thead-light">
     <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Customer Id</th>
-        <th scope="col">Employee Id</th>
-        <th scope="col">Order date</th>
-        <th scope="col">Required date</th>
-        <th scope="col">Shipped date</th>
-        <th scope="col">Ship via</th>
-        <th scope="col">Freight</th>
-        <th scope="col">Ship name</th>
-        <th scope="col">Ship address</th>
-        <th scope="col">Ship city</th>
-        <th scope="col">Ship region</th>
-        <th scope="col">Ship postal code</th>
-        <th scope="col">Ship country</th>
+        <th scope="col">order Id</th>
+        <th scope="col">ship country</th>
+        <th scope="col">ship name</th>
+        <th scope="col">order date</th>
+        <th scope="col">required date</th>
+        <th scope="col">shipped date</th>
+        <th scope="col"></th>
     </tr>
     </thead>
     <tbody data-spy="scroll" id="ordersTableBody">
