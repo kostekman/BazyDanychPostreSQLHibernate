@@ -107,7 +107,7 @@ function  getAllOrders () {
         contentType : 'application/json; charset=UTF-8',
         url: url,
         data: JSON.stringify({
-            orderId:2
+            freight:100
         })
     });
 }

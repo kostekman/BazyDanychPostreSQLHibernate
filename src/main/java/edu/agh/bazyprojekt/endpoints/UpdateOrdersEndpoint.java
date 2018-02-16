@@ -36,6 +36,9 @@ public class UpdateOrdersEndpoint {
         orderToUpdate = orderController.mergeOrders(orderToUpdate, orderController.mapJSONToOrder(json));
         session.update(orderToUpdate);
         session.close();
+        System.out.println(orderToUpdate.getOrderId());
+        System.out.println(orderToUpdate.getFreight());
+        System.out.println(orderToUpdate.getShipName());
 
         return true;
     }
