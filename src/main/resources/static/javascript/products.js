@@ -58,7 +58,7 @@ function getAllProducts () {
         })
     });
 }
-//getAllProducts();
+getAllProducts();
 
 function openProductModal(productId) {
 

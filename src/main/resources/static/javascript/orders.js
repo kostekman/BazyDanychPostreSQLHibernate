@@ -26,10 +26,14 @@ function deleteOrder(){
         url: url,
         data: JSON.stringify({
             orderId: orderIdToDelete
-        })
+        }),
+        success: function(){
+            orderIdToDelete=null;
+            getAllOrders();
+            $('#orderRemoveModal').modal('hide');
+        }
     });
-    orderIdToDelete=null;
-    $('#orderRemoveModal').modal('hide');
+
 }
  //$("#deleteButton").on("click", deleteOrder());
 $("#supertable").on("click", function(){
