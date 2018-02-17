@@ -1,4 +1,4 @@
-<h3 class="m_20_0">ORDERS</h3>
+<h3 class="m_20_0" id="supertable">ORDERS</h3>
 <button type="button" class="m_bottom_20 btn btn-success btn-sm" onclick="openOrderCreateModal()">+ new order</button>
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Id" aria-label="Search"
@@ -10,7 +10,7 @@
 </div>
 
 
-<table class="table">
+<table class="table" >
     <thead class="thead-light">
     <tr>
         <th scope="col">order Id</th>
@@ -25,6 +25,81 @@
     <tbody data-spy="scroll" id="ordersTableBody">
     </tbody>
 </table>
+
+<!-- Modal Details-->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal_900" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Id</label>
+                        <p id="idOrderD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>order date</label>
+                        <p id="orderDateD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>required date</label>
+                        <p id="requiredDateD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>shipped date</label>
+                        <p id="shippedDateD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>freight</label>
+                        <p id="freightD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship name</label>
+                        <p id="shipNameD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship address</label>
+                        <p id="shipAddressD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship city</label>
+                        <p id="shipCityD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship region</label>
+                        <p id="shipRegionD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship postal code</label>
+                        <p id="shipPostalCodeD"></p>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>ship country</label>
+                        <p id="shipCountryD"></p>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">product Id</th>
+                                <th scope="col">unit price</th>
+                                <th scope="col">quantity</th>
+                                <th scope="col">discount</th>
+                            </tr>
+                            </thead>
+                            <tbody data-spy="scroll" id="detailsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Modal Edit-->
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -209,15 +284,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure to remove the order?
+                Are you sure to remove the order?wqwed
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Remove order</button>
+                <button id="deleteButton" class="btn btn-danger" type="button" >Remove order</button>
             </div>
         </div>
     </div>
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+<!--<script src="./style/bootstrap-4.0.0-beta.3-dist/js/bootstrap.js"></script>-->
 
 <script src="./javascript/orders.js"></script>
