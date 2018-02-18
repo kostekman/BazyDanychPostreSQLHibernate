@@ -39,6 +39,7 @@ function createOrder(){
         })
     });
     $('#orderCreateModal').modal('hide');
+    getAllOrders();
 }
 function openOrderDetailsModal(orderId) {
     var order = ordersMap.get(orderId);
