@@ -1,11 +1,33 @@
-var i = 0;
-var request = new XMLHttpRequest();
-var allOrders = [];
-var filterOrders = [];
-var noDataWarning = "<div class='alert alert-warning'> No data</div>";
-var ordersMap = new Map();
-var orderIdToDelete= null;
-function createOrder(order){
+var productIdTable =[];
+var k = 0;
+function createOrder(){
+    var productForNewOrder =[];
+    var element;
+    for(k=0;k<productIdTable.length;k++){
+        element = {
+            productId: productIdTable[k],
+            discount: 0,
+            unitPrice: productsMap.get(productIdTable[k]).unitPrice,
+            quantity: $("#"+productIdTable[k]).val()
+        };
+        productForNewOrder.push(element);
+    }
+    var order = {
+        orderInfo: {
+            orderDate: $("#orderDateC").val(),
+            requiredDate: $("#requiredDateC").val(),
+            shippedDate: $("#shippedDateC").val(),
+            freight: $("#freightC").val(),
+            shipName: $("#shipNameC").val(),
+            shipAddress: $("#shipAddressC").val(),
+            shipCity: $("#shipCityC").val(),
+            shipPostalCode: $("#shipPostalCodeC").val(),
+            shipCountry: $("#shipCountryC").val(),
+            shipRegion: $("#shipRegionC").val()
+
+        },
+        orderDetails: productForNewOrder
+    };
     var url = 'http://localhost:8080/orders/createOrders';
     $.ajax({
         type: "PUT",
@@ -16,101 +38,7 @@ function createOrder(order){
             orderDetails: order.orderDetails
         })
     });
-}
-function deleteOrder(){
-    console.log(orderIdToDelete + 'delete');
-    var url = 'http://localhost:8080/orders/deleteOrders';
-    $.ajax({
-        type: "DELETE",
-        contentType : 'application/json; charset=UTF-8',
-        url: url,
-        data: JSON.stringify({
-            orderId: orderIdToDelete
-        }),
-        success: function(){
-            orderIdToDelete=null;
-            getAllOrders();
-            $('#orderRemoveModal').modal('hide');
-        }
-    });
-
-}
- //$("#deleteButton").on("click", deleteOrder());
-$("#supertable").on("click", function(){
-    console.log('nanan');
-});
-
-function getAllOrders () {
-    var url = 'http://localhost:8080/orders/readOrders';
-    $.ajax({
-        type: "POST",
-        contentType : 'application/json; charset=UTF-8',
-        url: url,
-        success: function (res) {
-            allOrders = res;
-            loadOrders(allOrders);
-        },
-        data: JSON.stringify({
-        })
-    });
-
-}
-function getOrdersById (id) {
-    var url = 'http://localhost:8080/orders/readOrders';
-    $.ajax({
-        type: "POST",
-        contentType : 'application/json; charset=UTF-8',
-        url: url,
-        success: function (res) {
-            filterOrders = res;
-            if(res.length == 0){
-                document.getElementById('ordersTableBody').innerHTML = noDataWarning;
-            }else {
-                loadOrders(filterOrders);
-            }
-
-        },
-        data: JSON.stringify({
-            orderId: id
-        })
-    });
-}
-function getOrdersByCountry(country) {
-    var url = 'http://localhost:8080/orders/readOrders';
-    $.ajax({
-        type: "POST",
-        contentType : 'application/json; charset=UTF-8',
-        url: url,
-        success: function (res) {
-            filterOrders = res;
-            if(res.length == 0){
-                document.getElementById('ordersTableBody').innerHTML = noDataWarning;
-            }else {
-                loadOrders(filterOrders);
-            }
-
-        },
-        data: JSON.stringify({
-            shipCountry: country
-        })
-    });
-}
-function openOrderModal(orderId) {
-    var order = ordersMap.get(orderId);
-    $('#idOrder').val(order.id);
-    $('#customerId').val(order.customerId);
-    $('#employeeId').val(order.employeeId);
-    $('#orderDate').val(order.orderDate);
-    $('#requiredDate').val(order.requiredDate);
-    $('#shipVia').val(order.shipVia);
-    $('#freight').val(order.freight);
-    $('#shipName').val(order.shipName);
-    $('#shipAdress').val(order.shipAdress);
-    $('#shipCity').val(order.shipCity);
-    $('#shipRegion').val(order.shipRegion);
-    $('#shipPostalCode').val(order.shipPostalCode);
-    $('#shipCountry').val(order.shipCountry);
-    $('#orderModal').modal('show');
+    $('#orderCreateModal').modal('hide');
 }
 function openOrderDetailsModal(orderId) {
     var order = ordersMap.get(orderId);
@@ -133,25 +61,32 @@ function openOrderDetailsModal(orderId) {
     $('#orderDetailsModal').modal('show');
 }
 function openOrderCreateModal() {
-    loadProductsToNewOrder('productsTableBodyModalOrder');
+    document.getElementById("selectedProduct").innerHTML = "";
+    document.getElementById("selectNewProduct").innerHTML = "";
     $('#orderCreateModal').modal('show');
+}
+function addProduct(id){
+    productIdTable.push(id);
+    var product = productsMap.get(id);
+    $("#selectedProduct").append("<div class=\"col-md-6\">"+product.productName+"</div><div class=\"col-md-6\" ><input id=\""+product.productId+"\" type='number'></div>");
+}
+function selectNewProductToOrder(){
+    productIdTable = [];
+    getAllProducts();
+    var productDropdownText = '';
+
+    for (var j=0; j<allProducts.length;j++){
+        console.log(allProducts[j].productName);
+        productDropdownText = productDropdownText + "<a class=\"dropdown-item\" onclick=\"addProduct("+allProducts[j].productId +")\">" + allProducts[j].productName + "</a>";
+    }
+    document.getElementById("selectNewProduct").innerHTML = "<div class=\"dropdown\">\n" +
+        "  <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Select product</button><div class=\"dropdown-menu\">" +
+        productDropdownText+
+        "</div></div>";
 }
 function openOrderRemoveModal(id) {
     orderIdToDelete = id;
     $('#orderRemoveModal').modal('show');
-}
-function loadOrders(ordersList){
-    ordersMap = new Map();
-    for (i = 0; i < ordersList.length; i++) {
-        ordersMap.set(ordersList[i].id, ordersList[i]);
-    }
-    var orderTable = document.getElementById('ordersTableBody');
-    var text = '';
-    for (i = 0; i < ordersList.length; i++) {
-        text = text + "<tr><th>" + ordersList[i].orderId + "</th><td>" + ordersList[i].shipCountry + "</td><td>" + ordersList[i].shipName + "</td><td>" + ordersList[i].orderDate + "</td><td>" + ordersList[i].requiredDate + "</td><td>" + ordersList[i].shippedDate + "</td><td class='buttonTd'><button type=\"button\" class=\"m_right_7 btn btn-secondary btn-sm\" onclick=\"openOrderDetailsModal(" + ordersList[i].id + ")\">Details</button><button type=\"button\" class=\"m_right_7 btn btn-primary btn-sm\" onclick=\"openOrderModal(" + ordersList[i].id + ")\">\n" +
-            "            Edit</button><button type=\"button\" class=\"btn btn-danger btn-sm\" onclick=\"openOrderRemoveModal("+ordersList[i].orderId+")\">X</button></td></tr>";
-    }
-    orderTable.innerHTML = text;
 }
 function filterOrdersFun(type){
     var filterValue = document.getElementById('ordersInputSearch').value;
