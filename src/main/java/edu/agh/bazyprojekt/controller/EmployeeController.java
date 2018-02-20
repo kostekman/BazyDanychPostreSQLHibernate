@@ -1,9 +1,11 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Employee;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+
 
 public interface EmployeeController {
     void createNewEmployee(Employee employee);

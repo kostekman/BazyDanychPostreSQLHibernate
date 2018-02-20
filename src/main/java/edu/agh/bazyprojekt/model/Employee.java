@@ -2,6 +2,8 @@ package edu.agh.bazyprojekt.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -269,7 +271,8 @@ public class Employee {
     }
 
     @JsonManagedReference(value="employee-employee")
-    @OneToMany(mappedBy = "reportsTo", cascade = CascadeType.DETACH)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "reportsTo", cascade = CascadeType.ALL)
     public Collection<Employee> getManagedEmployees() {
         return managedEmployees;
     }
@@ -279,6 +282,7 @@ public class Employee {
     }
 
     @JsonManagedReference(value="employee-orders")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "employee")
     public Collection<Order> getManagedOrders() {
         return managedOrders;

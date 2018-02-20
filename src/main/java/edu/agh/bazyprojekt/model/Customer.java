@@ -1,6 +1,8 @@
 package edu.agh.bazyprojekt.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -174,6 +176,7 @@ public class Customer {
     }
 
     @JsonManagedReference(value="customer-order")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<Order> getOrders() {
         return orders;

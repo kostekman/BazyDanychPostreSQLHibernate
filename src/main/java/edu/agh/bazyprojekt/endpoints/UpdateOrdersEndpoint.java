@@ -4,9 +4,8 @@ import edu.agh.bazyprojekt.controller.OrderController;
 import edu.agh.bazyprojekt.controller.OrderDetailsController;
 import edu.agh.bazyprojekt.hibernateUtils.HibernateSessionFactory;
 import edu.agh.bazyprojekt.model.Order;
-import edu.agh.bazyprojekt.model.OrderDetails;
-import edu.agh.bazyprojekt.model.OrderRequestBody;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,13 +31,13 @@ public class UpdateOrdersEndpoint {
         Map<String,String > orderRestriction = new HashMap<>();
         orderRestriction.put("orderId",json.get("orderId"));
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
+
+        Transaction tr = session.beginTransaction();
         Order orderToUpdate = orderController.getOrder(orderRestriction, session).get(0);
         orderToUpdate = orderController.mergeOrders(orderToUpdate, orderController.mapJSONToOrder(json));
         session.update(orderToUpdate);
+        tr.commit();
         session.close();
-        System.out.println(orderToUpdate.getOrderId());
-        System.out.println(orderToUpdate.getFreight());
-        System.out.println(orderToUpdate.getShipName());
 
         return true;
     }

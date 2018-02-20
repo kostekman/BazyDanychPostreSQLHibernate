@@ -1,6 +1,7 @@
 package edu.agh.bazyprojekt.controller;
 
 import edu.agh.bazyprojekt.model.Customer;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
+@Component
 public class HibernateCustomerController extends HibernateController implements  CustomerController{
     @Override
     public void createNewCustomer(Customer customer) {
