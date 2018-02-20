@@ -42,6 +42,23 @@ var productsMap = new Map();
 for (i = 0; i < products.length; i++) {
     productsMap.set(products[i].id, products[i]);
 }
+var allProducts = [];
+function getAllProducts () {
+    var url = 'http://localhost:8080/products/readProducts';
+    $.ajax({
+        type: "POST",
+        contentType : 'application/json; charset=UTF-8',
+        url: url,
+        success: function (res) {
+            allProducts = res;
+            console.log(res);
+            //loadOrders(allOrders);
+        },
+        data: JSON.stringify({
+        })
+    });
+}
+getAllProducts();
 
 function openProductModal(productId) {
 
