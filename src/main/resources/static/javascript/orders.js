@@ -16,14 +16,15 @@ function createOrder(){
         orderInfo: {
             orderDate: $("#orderDateC").val(),
             requiredDate: $("#requiredDateC").val(),
-            shippedDate: $("#shippedDateC").val(),
             freight: $("#freightC").val(),
             shipName: $("#shipNameC").val(),
             shipAddress: $("#shipAddressC").val(),
             shipCity: $("#shipCityC").val(),
             shipPostalCode: $("#shipPostalCodeC").val(),
             shipCountry: $("#shipCountryC").val(),
-            shipRegion: $("#shipRegionC").val()
+            shipRegion: $("#shipRegionC").val(),
+            customer: customersMap.get($("#customerC").val()),
+            employee: employeesMap.get($("#employeeC").val())
 
         },
         orderDetails: productForNewOrder
@@ -62,6 +63,8 @@ function openOrderDetailsModal(orderId) {
     $('#orderDetailsModal').modal('show');
 }
 function openOrderCreateModal() {
+    getAllEmployees();
+    getAllCustomers();
     document.getElementById("selectedProduct").innerHTML = "";
     document.getElementById("selectNewProduct").innerHTML = "";
     $('#orderCreateModal').modal('show');

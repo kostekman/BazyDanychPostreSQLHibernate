@@ -187,13 +187,17 @@
             </div>
             <div class="modal-body">
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="customerIdC">Customer Id</label>
-                        <input class="form-control" id="customerIdC" placeholder="Customer Id">
+                    <div class="col-md-6 my-1">
+                        <label class="mr-sm-2" for="employeeC">Employee</label>
+                        <select class="custom-select mr-sm-2" id="employeeC">
+
+                        </select>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="employeeIdC">Employee Id</label>
-                        <input class="form-control" id="employeeIdC" placeholder="Employee Id">
+                    <div class="col-md-6 my-1">
+                        <label class="mr-sm-2" for="customerC">Customer</label>
+                        <select class="custom-select mr-sm-2" id="customerC">
+
+                        </select>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="orderDateC">Order date</label>
@@ -204,16 +208,8 @@
                         <input class="form-control" id="requiredDateC" placeholder="Required date">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="shippedDateC">Shipped date</label>
-                        <input class="form-control" id="shippedDateC" placeholder="Shipped date">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="shipViaC">Ship via</label>
-                        <input class="form-control" id="shipViaC" placeholder="Ship via">
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="freightC">Freight</label>
-                        <input class="form-control" id="freightC" placeholder="Freight">
+                        <input class="form-control" type="number" id="freightC" placeholder="Freight">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="shipNameC">Ship name</label>
@@ -239,35 +235,20 @@
                         <label for="shipCountryC">Ship country</label>
                         <input class="form-control" id="shipCountryC" placeholder="Ship country">
                     </div>
-                    <div class="form-group col-md-12">
-                      <div>
-                          <table class="table">
-                              <thead class="thead-light">
-                              <tr>
-                                  <th scope="col">ID</th>
-                                  <th scope="col">Name</th>
-                                  <th scope="col">Supplier ID</th>
-                                  <th scope="col">Category ID</th>
-                                  <th scope="col">Quantity per unit</th>
-                                  <th scope="col">Unit price</th>
-                                  <th scope="col">Units in stock</th>
-                                  <th scope="col">Units on order</th>
-                                  <th scope="col">Reorder level</th>
-                                  <th scope="col">Discontinued</th>
-                                  <th scope="col"></th>
-                              </tr>
-                              </thead>
-                              <tbody id="productsTableBodyModalOrder">
+                    <div class="col-md-12 row" id="selectedProduct">
 
-                              </tbody>
-                          </table>
-                      </div>
+                    </div>
+                    <div class="col-md-12 row" id="selectNewProduct">
+
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-outline-success" onclick="selectNewProductToOrder()">+ Add new products</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Create order</button>
+                <button type="button" class="btn btn-primary" onclick="createOrder()">Create order</button>
             </div>
         </div>
     </div>
@@ -296,5 +277,5 @@
 
 
 <!--<script src="./style/bootstrap-4.0.0-beta.3-dist/js/bootstrap.js"></script>-->
-
+<script src="./javascript/route.js"></script>
 <script src="./javascript/orders.js"></script>
