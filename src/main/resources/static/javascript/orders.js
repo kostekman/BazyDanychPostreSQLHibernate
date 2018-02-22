@@ -6,7 +6,7 @@ function createOrder(){
     for(k=0;k<productIdTable.length;k++){
         element = {
             productId: productIdTable[k],
-            discount: 0,
+            discount: $("#"+productIdTable[k]+"d").val(),
             unitPrice: productsMap.get(productIdTable[k]).unitPrice,
             quantity: $("#"+productIdTable[k]).val()
         };
@@ -72,7 +72,7 @@ function openOrderCreateModal() {
 function addProduct(id){
     productIdTable.push(id);
     var product = productsMap.get(id);
-    $("#selectedProduct").append("<div class=\"col-md-6\">"+product.productName+"</div><div class=\"col-md-6\" ><input id=\""+product.productId+"\" type='number'></div>");
+    $("#selectedProduct").append("<div class=\"col-md-6\">"+product.productName+"</div><div class=\"col-md-3 form-grop\" ><label>quantity</label><input id=\""+product.productId+"\" type='number'></div class=\"col-md-3 form-group\"><label>discount</label><input id=\""+product.productId+"d\" type=\"number\"><div></div>");
 }
 function selectNewProductToOrder(){
     productIdTable = [];
